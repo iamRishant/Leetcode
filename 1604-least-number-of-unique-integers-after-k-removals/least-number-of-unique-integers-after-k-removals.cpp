@@ -14,21 +14,22 @@ public:
         for(int i=0;i<arr.size();i++){
             mp[arr[i]]++;
         }
-        vector<pair<int,int>> p;
+        // no need to take the pair 
+        vector<int> v;
         for(auto it:mp){
             // cout<<it.first<<" "<<it.second<<endl;
-            p.push_back(make_pair(it.first,it.second));
+            v.push_back(it.second);
         }
-        sort(p.begin(),p.end(),compare);
-        for(int i=0;i<p.size();i++){
+        sort(v.begin(),v.end());
+        for(int i=0;i<v.size();i++){
             // cout<<p[i].first<<" "<<p[i].second<<endl;
             if(k==0){
-                int ans=p.size()-(i);
+                int ans=v.size()-(i);
                 return ans;
             }
-            if(p[i].second<=k) k-=p[i].second;
+            if(v[i]<=k) k-=v[i];
             else {
-                int ans=(p.size()-i);
+                int ans=(v.size()-i);
                 return ans;
             }
         }
