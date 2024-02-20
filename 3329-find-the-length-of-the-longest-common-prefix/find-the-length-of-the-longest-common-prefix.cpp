@@ -17,11 +17,18 @@ public:
         set<string> s2=allPrefix(arr2);
 
         int ans=0;
-        for(auto ele:s1){
-            if(s2.find(ele)!=s2.end()){
-                int len=ele.length();
-                ans=max(ans,len);
+        auto it1=s1.begin();
+        auto it2=s2.begin();
+        while(it1!=s1.end() && it2!=s2.end()){
+            if((*it1)==(*it2)){
+                int len=(*it1).length();
+                ans=max(len,ans);
+                it1++;
+                it2++;
             }
+            else if((*it1)>(*it2)) it2++;
+            else it1++;
+
         }
         return ans;
     }
