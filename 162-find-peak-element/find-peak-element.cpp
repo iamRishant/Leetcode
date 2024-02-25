@@ -12,7 +12,7 @@ public:
         int e=n-2;
         while(e>=s){
             int mid=s+(e-s)/2;
-            // now three 4 cases
+            // now three 3 cases
             //1 mid is the peak
             if(nums[mid]>nums[mid+1] && nums[mid]>nums[mid-1]) return mid;
             // so either on the decreasing side then peak on left
