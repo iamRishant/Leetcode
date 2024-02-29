@@ -6,13 +6,11 @@ public:
         for(int i=0;i<arr.size();i++){
             if(arr[i]<=mid) count++;
             else{
-                // checking for consecutive blooms and ans==m then we got the answer
                 ans+=((count)/k);
                 count=0;
             }
         }
         ans+=(count/k);
-        // cout<<"ans "<<ans<<" ";
         if(ans>=m) return 0;
         return 1;
     }
@@ -28,10 +26,8 @@ public:
         int ans=h;
         // now we got thee range we have to find the correct op
         while(h>=l){
-            // cout<<"HELLO"<<endl;
             int mid=l+(h-l)/2;
             int val=check(mid,arr,m,k);
-            // cout<<"mid "<<mid<<" ";
             cout<<"val "<<val<<" ";
             if(val==0){
                 ans=min(mid,ans);
