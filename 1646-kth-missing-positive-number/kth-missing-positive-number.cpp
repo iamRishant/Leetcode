@@ -4,10 +4,13 @@ public:
         int n=arr.size();
         int temp=k;
         // for first element
-        int difff=arr[0]-0;
-        difff--;
-        if(difff>=k) return temp;
-        else k=k-difff;
+        // int difff=arr[0]-0;
+        // difff--;
+        // if(difff>=k) return temp;
+        // else k=k-difff;
+
+        if(k<arr[0]) return k;
+        else k=k-(arr[0]-1);
         //-------------------------+
         for(int i=1;i<n;i++){
             int diff=arr[i]-arr[i-1];
