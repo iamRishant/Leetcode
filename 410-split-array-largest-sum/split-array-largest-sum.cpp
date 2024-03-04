@@ -3,6 +3,7 @@ public:
     bool check(long long i, vector<int> nums,int k){
         int student=1;
         int numberOfPages=0;
+        // ye andr wala kaam to prefix sum se bhi krr lenge range find krna main kaam tha
         for(int j=0;j<nums.size();j++){
             if(numberOfPages+nums[j]<=i){
                 numberOfPages+=nums[j];
