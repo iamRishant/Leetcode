@@ -3,10 +3,15 @@ public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
         int n=matrix.size();
         int m=matrix[0].size();
-        for(int i=0;i<n;i++){
-            int index=lower_bound(matrix[i].begin(),matrix[i].end(),target)-matrix[i].begin();
-            if(index<0 || index>=m || matrix[i][index]!=target) continue;
-            else return true;
+        int i=0;
+        int j=m-1;
+        while(i<n && j>=0){
+            if(target==matrix[i][j]) return true;
+            else if(target<matrix[i][j]){
+                //move left
+                j=j-1;
+            }
+            else i=i+1;
         }
         return false;
     }
