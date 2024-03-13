@@ -1,12 +1,9 @@
 class Solution {
 public:
     bool isPowerOfTwo(int n) {
-        if(n<0)return false;
-        
-        int bits=__builtin_popcount(n);
-        
-        if(bits==1)
-            return true;
-        return false;
+        // every number which is power of two have only one set bit 
+        if(n<=0) return false;
+        // n=abs(n);
+        return !(n&(n-1));
     }
 };
