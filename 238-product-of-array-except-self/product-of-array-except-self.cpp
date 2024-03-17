@@ -9,6 +9,7 @@ public:
             pre[i]=currProd*nums[i];
             currProd=pre[i];
         }
+        
         vector<int> ans(n);
         currProd=1;
         for(int i=n-1;i>=0;i--){
