@@ -1,6 +1,7 @@
 class Solution {
 public:
     bool check(int number){
+        // one is not a prime number
         if(number==1) return true;
         if(number==2) return false;
         for(int i=2;i*i<=number;i++){
