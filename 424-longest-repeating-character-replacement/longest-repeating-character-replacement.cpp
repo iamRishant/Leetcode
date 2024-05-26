@@ -1,22 +1,27 @@
 class Solution {
 public:
     int characterReplacement(string s, int k) {
-        // brute force creating all the substring len-maxf
-
-    int ans=0;
-    for(int i=0;i<s.length();i++){
-    int maxf=0;
-    int hash[26]={0};
-        for(int j=i;j<s.length();j++){
-            hash[s[j]-'A']++;
-            maxf=max(maxf,hash[s[j]-'A']);
-            int changes=(j-i+1)-maxf;//len-maxf
-            if(changes<=k){
-                ans=max(ans,j-i+1);
+        int n=s.length();
+        int l=0;
+        int r=0;
+        int hash[26]={0};
+        int maxf=0;
+        int ans=0;
+        while(r<n){
+            hash[s[r]-'A']++;
+            maxf=max(hash[s[r]-'A'],maxf);
+            int len=r-l+1;
+            if(len-maxf>k){
+                hash[s[l]-'A']--;
+                maxf=0;
+                l++;
             }
-            else break;
+            if(len-maxf<=k){
+                ans=max(ans,len);
+            }
+            r++;
+
         }
-    }
-    return ans;
+        return ans;
     }
 };
