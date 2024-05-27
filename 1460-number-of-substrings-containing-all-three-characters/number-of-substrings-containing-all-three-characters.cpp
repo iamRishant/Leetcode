@@ -10,8 +10,7 @@ public:
 
             
                 while(mp.size()==3){
-                    ans+=(s.length()-r-1);
-                    ans++;
+                    ans+=(s.length()-r);
                     if(s[l]=='a' || s[l]=='b' || s[l]=='c') mp[s[l]]--;
                     if(mp[s[l]]==0) mp.erase(s[l]);
                     l++;
