@@ -21,8 +21,8 @@ public:
         int ans=0;
         int l=k-1;
         int r=-1;
-        k++;
-        while(k--){
+        // k++;
+        for(int i=0;i<=k;i++){
             if(r==-1){
                 ans=preFix[l];
             }
