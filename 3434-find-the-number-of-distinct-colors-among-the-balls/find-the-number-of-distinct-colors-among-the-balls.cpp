@@ -1,8 +1,8 @@
 class Solution {
 public:
     vector<int> queryResults(int limit, vector<vector<int>>& queries) {
-        map<int,int> mp;
-        map<int,int> s;
+        unordered_map<int,int> mp;
+        unordered_map<int,int> s;
         // int n=queries.size();
         // vector<int>(limit+1,0);
         vector<int> ans;
