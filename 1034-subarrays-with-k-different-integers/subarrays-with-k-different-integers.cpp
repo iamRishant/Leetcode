@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int solve(vector<int> nums,int k){
+    int solve(vector<int> &nums,int k){
         if(k<0) return 0;
         map<int,int> mp;
         int l=0;
