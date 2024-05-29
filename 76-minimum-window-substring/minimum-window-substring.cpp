@@ -1,35 +1,29 @@
 class Solution {
 public:
-    std::string minWindow(std::string s, std::string t) {
-        if (s.empty() || t.empty() || s.length() < t.length()) {
-            return "";
-        }
-
-        std::vector<int> map(128, 0);
-        int count = t.length();
-        int start = 0, end = 0, minLen = INT_MAX, startIndex = 0;
-        /// UPVOTE !
-        for (char c : t) {
-            map[c]++;
-        }
-
-        while (end < s.length()) {
-            if (map[s[end++]]-- > 0) {
-                count--;
-            }
-
-            while (count == 0) {
-                if (end - start < minLen) {
-                    startIndex = start;
-                    minLen = end - start;
+    string minWindow(string s, string t) {
+        int sIndex=-1;
+        int minLen=1e9;
+        int l=0;
+        int r=0;
+        int count=0;
+        map<char,int> mp;
+        for(int i=0;i<t.size();i++) mp[t[i]]++;
+        while(r<s.length()){
+            if(mp[s[r]]>0) count++;
+            mp[s[r]]--;
+            while(count==t.size()){
+                if(r-l+1<minLen){
+                    minLen=r-l+1;
+                    sIndex=l;
                 }
 
-                if (map[s[start++]]++ == 0) {
-                    count++;
-                }
+                    mp[s[l]]++;
+                    if(mp[s[l]]>0) count--;
+                    l++;
+                
             }
+                r++;
         }
-
-        return minLen == INT_MAX ? "" : s.substr(startIndex, minLen);
+        return sIndex==-1 ? "": s.substr(sIndex,minLen);
     }
 };
