@@ -4,6 +4,7 @@ public:
         vector<int> ans;
         map<int,int> mp;
         set<int> s;
+        int n=nums.size();
 
         for(int i=0;i<k;i++){
             mp[nums[i]]++;
@@ -11,9 +12,9 @@ public:
         }
 
         int l=0;
-        while(l+k<=nums.size()){
+        while(l+k<=n){
             ans.push_back(*s.rbegin());
-            if(l+k<nums.size()){
+            if(l+k<n){
                 int outgoing=nums[l];
                 mp[outgoing]--;
                 if(mp[outgoing]==0) {
