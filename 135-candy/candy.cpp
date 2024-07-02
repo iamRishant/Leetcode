@@ -1,33 +1,25 @@
 class Solution {
 public:
-   int candy(vector<int>& ratings) {
-        int n = ratings.size();
-        int candy = n, i=1;
-        while(i<n){
-            if(ratings[i] == ratings[i-1]){
-                i++;
-                continue;
-            }
-            
-            //For increasing slope
-            int peak = 0;
-            while(ratings[i] > ratings [i-1]){
-                peak++;
-                candy += peak;
-                i++;
-                if(i == n) return candy;
-            }
-            
-            //For decreasing slope
-            int valley = 0;
-            while(i<n && ratings[i] < ratings[i-1]){
-                valley++;
-                candy += valley;
-                i++;
-            }
-            candy -= min(peak, valley); //Keep only the higher peak
+    int candy(vector<int>& ratings) {
+        map<pair<int,int>,int> mp;
+        int n=ratings.size();
+        for(int i=0;i<n;i++){
+            mp[{ratings[i],i}]++;
         }
-        return candy;
-        
+        vector<int> ans(n,1);
+        for(auto it: mp){
+            int currRating=it.first.first;
+            int idxRating=it.first.second;
+            if(idxRating-1>=0 && ratings[idxRating-1]>currRating){
+                // ans[idxRating-1]=ans[idxRating]+1;
+                ans[idxRating-1]=max(ans[idxRating-1],ans[idxRating]+1);
+            }
+            if(idxRating+1<n && ratings[idxRating+1]>currRating){
+                ans[idxRating+1]=max(ans[idxRating+1],ans[idxRating]+1);
+            }
+            // mp.erase(mp.find());
+        }
+
+        return accumulate(ans.begin(),ans.end(),0);
     }
 };
