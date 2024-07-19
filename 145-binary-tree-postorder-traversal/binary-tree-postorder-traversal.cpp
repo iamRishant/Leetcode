@@ -12,28 +12,33 @@
 class Solution {
 public:
     vector<int> postorderTraversal(TreeNode* root) {
-        // initial state root node in st1
-        // step1 pop from st1 push into st2
-        // step2 top element of st2 push its left and right to st1 
-        // loop until st1 is empty and then the st2 will have the post order traversal
-        vector<int> ans;
-        if(root==NULL) return ans;
-        stack<TreeNode*> st1;
-        stack<TreeNode*> st2;
-        st1.push(root);
-        while(!st1.empty()){
-            auto it=st1.top();
-            st1.pop();
-            st2.push(it);
-            if(it->left!=NULL) st1.push(it->left);
-            if(it->right!=NULL) st1.push(it->right);
-        }
-        while(!st2.empty()){
-            auto it=st2.top();
-            ans.push_back(it->val);
-            st2.pop();
-        }
-        return ans;
+        // all in one
+        // num==1 then preorder, push(left,1)
+        //num==2 then in order, push(right,1)
+        // num==3 then post order
+        
+        vector<int> post;
+        if(root==NULL) return post;
+        stack<pair<TreeNode*,int>> st;
+        st.push({root,1});
+        while(!st.empty()){
+            auto it=st.top();
+            st.pop();
+            auto roott=it.first;
+            int num=it.second;
+            if(num==1){
+                st.push({roott,num+1});
+                if(roott->left!=NULL) st.push({roott->left,1});
+            }
+            else if(num==2){
+                st.push({roott,num+1});
+                if(roott->right!=NULL) st.push({roott->right,1});
+            }
+            else if(num==3){
+                post.push_back(roott->val);
 
+            }
+        }
+        return post;
     }
 };
