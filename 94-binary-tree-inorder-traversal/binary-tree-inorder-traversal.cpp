@@ -12,27 +12,37 @@
 class Solution {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
-        // iterative
-
-        vector<int> ans;
-        if(root==NULL) return ans;
-
-        stack<TreeNode *> st;
+        // all in one
+        // num==1 then preorder, push(left,1)
+        //num==2 then in order, push(right,1)
+        // num==3 then post order
         
-        while(true){
-            if(root!=NULL){
-                st.push(root);
-                root=root->left;
+        vector<int> post;
+        vector<int> pre;
+        vector<int> in;
+        if(root==NULL) return post;
+        stack<pair<TreeNode*,int>> st;
+        st.push({root,1});
+        while(!st.empty()){
+            auto it=st.top();
+            st.pop();
+            auto roott=it.first;
+            int num=it.second;
+            if(num==1){
+                pre.push_back(roott->val);
+                st.push({roott,num+1});
+                if(roott->left!=NULL) st.push({roott->left,1});
             }
-            else{
-                if(st.empty()==true) break;
-                auto it=st.top();
-                ans.push_back(it->val);
-                st.pop();
-                root=it->right;
+            else if(num==2){
+                in.push_back(roott->val);
+                st.push({roott,num+1});
+                if(roott->right!=NULL) st.push({roott->right,1});
             }
-            
+            else if(num==3){
+                post.push_back(roott->val);
+
+            }
         }
-        return ans;
+        return in;
     }
 };
