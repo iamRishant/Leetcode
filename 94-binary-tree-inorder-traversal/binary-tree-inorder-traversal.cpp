@@ -13,8 +13,8 @@ class Solution {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
         // all in one
-        // num==1 then preorder, push(left,1)
-        //num==2 then in order, push(right,1)
+        // num==1 then preorder, push(left,1) and push same with (root,num+1)
+        //num==2 then in order, push(right,1) and push same with (root,num+1)
         // num==3 then post order
         
         vector<int> post;
