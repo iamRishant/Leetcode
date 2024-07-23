@@ -23,6 +23,7 @@ public:
         // diameter of tree either lie in the left subtree
         // or right subtree
         // of height of left + right + 1
+        // this if o(N^2)
         if(root==NULL) return 0;
 
         int op1=diameterOfBinaryTree(root->left);
