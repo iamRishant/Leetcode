@@ -11,26 +11,21 @@
  */
 class Solution {
 public:
-    int height(TreeNode *root){
+    
+    int maxi=0;
+    int height(TreeNode* root){
         if(root==NULL) return 0;
 
-        int left=1+height(root->left);
-        int right=1+height(root->right);
-
-        return max(left,right);
+        int lh=height(root->left);
+        int rh=height(root->right);
+        // now we are calculating left height and right height and storing the value
+        maxi=max(maxi,lh+rh);// here we are storing the diameter while finding the height
+        return 1+max(lh,rh);
     }
     int diameterOfBinaryTree(TreeNode* root) {
-        // diameter of tree either lie in the left subtree
-        // or right subtree
-        // of height of left + right + 1
-        // this if o(N^2)
-        if(root==NULL) return 0;
+        // now we will do it in order of n
 
-        int op1=diameterOfBinaryTree(root->left);
-        int op2=diameterOfBinaryTree(root->right);
-        int op3=height(root->left)+height(root->right);
-        // we are not counting the nodes we are counting edges so we dont need to add 1 to op3
-
-        return max(op1,max(op2,op3));
+        height(root);
+        return maxi;
     }
 };
