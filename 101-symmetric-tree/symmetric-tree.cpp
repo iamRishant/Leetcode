@@ -1,29 +1,38 @@
 /**
- * Definition for a binary tree node.
+ * Definition for binary tree
  * struct TreeNode {
  *     int val;
  *     TreeNode *left;
  *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
 class Solution {
 public:
-    bool solve(TreeNode* root1, TreeNode* root2){
-        if(root1==NULL && root2==NULL) return false;
-        else if(root1==NULL && root2!=NULL) return true;
-        else if(root1!=NULL && root2==NULL) return true;
-        if(root1->val!=root2->val) return true;
-
-        if(root1==NULL) return false;
-        bool op1=solve(root1->left,root2->right);
-        bool op2=solve(root1->right,root2->left);
-
-        return op1||op2;
-    }
-    bool isSymmetric(TreeNode* root) {
-        return !solve(root->left,root->right);
+    bool isSymmetric(TreeNode *root) {
+        TreeNode *left, *right;
+        if (!root)
+            return true;
+        
+        queue<TreeNode*> q1, q2;
+        q1.push(root->left);
+        q2.push(root->right);
+        while (!q1.empty() && !q2.empty()){
+            left = q1.front();
+            q1.pop();
+            right = q2.front();
+            q2.pop();
+            if (NULL == left && NULL == right)
+                continue;
+            if (NULL == left || NULL == right)
+                return false;
+            if (left->val != right->val)
+                return false;
+            q1.push(left->left);
+            q1.push(left->right);
+            q2.push(right->right);
+            q2.push(right->left);
+        }
+        return true;
     }
 };
