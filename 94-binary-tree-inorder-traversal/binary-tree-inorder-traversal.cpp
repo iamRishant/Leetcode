@@ -12,37 +12,35 @@
 class Solution {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
-        // all in one
-        // num==1 then preorder, push(left,1) and push same with (root,num+1)
-        //num==2 then in order, push(right,1) and push same with (root,num+1)
-        // num==3 then post order
-        
-        vector<int> post;
-        vector<int> pre;
-        vector<int> in;
-        if(root==NULL) return post;
-        stack<pair<TreeNode*,int>> st;
-        st.push({root,1});
-        while(!st.empty()){
-            auto it=st.top();
-            st.pop();
-            auto roott=it.first;
-            int num=it.second;
-            if(num==1){
-                pre.push_back(roott->val);
-                st.push({roott,num+1});
-                if(roott->left!=NULL) st.push({roott->left,1});
-            }
-            else if(num==2){
-                in.push_back(roott->val);
-                st.push({roott,num+1});
-                if(roott->right!=NULL) st.push({roott->right,1});
-            }
-            else if(num==3){
-                post.push_back(roott->val);
+        // Morris Traversal o(n) time and o(1) space using threaded binary tree
+        // case 1 if left is null then just print and move to right
+        // case 2 is left is not null then go left and move to its right most part and connect it to root
 
+        vector<int> inorder;
+        TreeNode* curr=root;
+        while(curr!=NULL){
+            if(curr->left==NULL){
+                inorder.push_back(curr->val);
+                curr=curr->right;
+            }
+            else{
+                TreeNode * temp=curr->left;
+                while(temp->right!=NULL && temp->right!=curr){
+                    temp=temp->right;
+                }
+                // ab yha do case ya to temp->right=NULL mtlb first time visit krr rhe
+                // but agar temp->right=curr hai then mtlb visit kar chuke hai we need to remove this thred and move to right
+                if(temp->right==NULL){
+                    temp->right=curr;
+                    curr=curr->left;
+                }
+                else{
+                    temp->right=NULL;
+                    inorder.push_back(curr->val);
+                    curr=curr->right;
+                }
             }
         }
-        return in;
+            return inorder;
     }
 };
