@@ -11,17 +11,21 @@
  */
 class Solution {
 public:
-    TreeNode * prev=NULL;
     void flatten(TreeNode* root) {
-        // recursion is easy just last node par jao by doing (right left node) ulta of pre order and then assign its value to prev
+        // more optimised morris traversal space optimised
         if(root==NULL) return;
-        flatten(root->right);
-        flatten(root->left);
-         
-        //  now we need to update node linkiing
-        root->right=prev;
-        root->left=NULL;
-        prev=root;//updating prev
-        
+        TreeNode * curr=root;
+        while(curr!=NULL){
+            if(curr->left!=NULL){
+                TreeNode * prev=curr->left;
+                while(prev->right!=NULL){
+                    prev=prev->right;
+                }
+                prev->right=curr->right;
+                curr->right=curr->left;
+                curr->left=NULL;
+            }
+            curr=curr->right;
+        }
     }
 };
