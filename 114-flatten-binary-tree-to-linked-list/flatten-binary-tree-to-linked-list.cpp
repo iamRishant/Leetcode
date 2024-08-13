@@ -11,29 +11,17 @@
  */
 class Solution {
 public:
-    vector<int> preOrder;
-    void solve(TreeNode * root){
-        if(root==NULL) return;
-
-        preOrder.push_back(root->val);
-        solve(root->left);
-        solve(root->right);
-    }
+    TreeNode * prev=NULL;
     void flatten(TreeNode* root) {
-        solve(root);
-        if(root==NULL) return ;
-        TreeNode *temp=new TreeNode(preOrder[0]);
-        // temp->left=NULL;
-        TreeNode *dummy=temp;
-
-        // for(int i=0;i<preOrder.size();i++) cout<<preOrder[i]<<" ";
-
-        for(int i=1;i<preOrder.size();i++){
-            TreeNode *newTemp=new TreeNode(preOrder[i]);
-            root->right=newTemp;
-            root->left=NULL;
-            root=root->right;
-        }
+        // recursion is easy just last node par jao by doing (right left node) ulta of pre order and then assign its value to prev
+        if(root==NULL) return;
+        flatten(root->right);
+        flatten(root->left);
+         
+        //  now we need to update node linkiing
+        root->right=prev;
+        root->left=NULL;
+        prev=root;//updating prev
         
     }
 };
