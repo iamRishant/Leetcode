@@ -13,6 +13,7 @@ class Solution {
 public:
     void flatten(TreeNode* root) {
         // more optimised morris traversal space optimised
+        // left subtree ka last preorder node is connected to root->right
         if(root==NULL) return;
         TreeNode * curr=root;
         while(curr!=NULL){
