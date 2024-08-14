@@ -12,35 +12,23 @@
 class Solution {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
-        // Morris Traversal o(n) time and o(1) space using threaded binary tree
-        // case 1 if left is null then just print and move to right
-        // case 2 is left is not null then go left and move to its right most part and connect it to root
+        vector<int> ans;
+        if(root==NULL) return ans;
 
-        vector<int> inorder;
-        TreeNode* curr=root;
-        while(curr!=NULL){
-            if(curr->left==NULL){
-                inorder.push_back(curr->val);
-                curr=curr->right;
+        stack<TreeNode *> st;
+        while(true){
+            if(root!=NULL){
+                st.push(root);
+                root=root->left;
             }
             else{
-                TreeNode * temp=curr->left;
-                while(temp->right!=NULL && temp->right!=curr){
-                    temp=temp->right;
-                }
-                // ab yha do case ya to temp->right=NULL mtlb first time visit krr rhe
-                // but agar temp->right=curr hai then mtlb visit kar chuke hai we need to remove this thred and move to right
-                if(temp->right==NULL){
-                    temp->right=curr;
-                    curr=curr->left;
-                }
-                else{
-                    temp->right=NULL;
-                    inorder.push_back(curr->val);
-                    curr=curr->right;
-                }
+                if(st.empty()==true) break;
+                auto it=st.top();
+                st.pop();
+                ans.push_back(it->val);
+                root=it->right;
             }
         }
-            return inorder;
+        return ans;
     }
 };
