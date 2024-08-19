@@ -2,6 +2,8 @@ class Solution {
 public:
     int trap(vector<int>& height) {
         // total+=(min(leftMax,rightMax)-arr[i])
+
+        // time is o(n) but space is o(2n) 
         int n=height.size();
         vector<int> preFixMax(n,0);
         vector<int> sufFixMax(n,0);
