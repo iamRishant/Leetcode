@@ -1,57 +1,37 @@
-								// \U0001f609\U0001f609\U0001f609\U0001f609Please upvote if it helps \U0001f609\U0001f609\U0001f609\U0001f609
 class Solution {
 public:
     string removeKdigits(string num, int k) {
-        // number of operation greater than length we return an empty string
-        if(num.length() <= k)   
-            return "0";
-        
-        // k is 0 , no need of removing /  preforming any operation
-        if(k == 0)
-            return num;
-        
-        string res = "";// result string
-        stack <char> s; // char stack
-        
-        s.push(num[0]); // pushing first character into stack
-        
-        for(int i = 1; i<num.length(); ++i)
-        {
-            while(k > 0 && !s.empty() && num[i] < s.top())
-            {
-                // if k greater than 0 and our stack is not empty and the upcoming digit,
-                // is less than the current top than we will pop the stack top
-                --k;
-                s.pop();
+        stack<char> st;
+        int n=num.size();
+        for(int i=0;i<n;i++){
+            while(!st.empty() && k>0 && (st.top()-'0')>(num[i]-'0')){
+                st.pop();
+                k--;
             }
-            
-            s.push(num[i]);
-            
-            // popping preceding zeroes
-            if(s.size() == 1 && num[i] == '0')
-                s.pop();
+            st.push(num[i]);
         }
-        
-        while(k && !s.empty())
-        {
-            // for cases like "456" where every num[i] > num.top()
-            --k;
-            s.pop();
+        while(k>0){
+            st.pop();
+            k--;
+            //deleting from back coz in the back there will be larget number
         }
-        
-        while(!s.empty())
-        {
-            res.push_back(s.top()); // pushing stack top to string
-            s.pop(); // pop the top element
+        // ab iske baad stack pura ka pura empty ho skta hai so lets check
+        if(st.empty()) return "0";
+        // ab empty nhi hai then res me value store krlo
+        string ans="";
+        while(!st.empty()){
+            ans.push_back(st.top());
+            st.pop();
         }
+        // ab problem ye hai ki ans ke piche 0 ho skta hai jo ki count nhi krna hai to usko deletr krte hai
+        while(ans.length()!=0 && ans.back()=='0'){
+            ans.pop_back();
+        } 
+        // ab iske baad bhi ho skta hai sbb zero ho so lets check
+        if(ans.length()==0) return "0";
         
-        reverse(res.begin(),res.end()); // reverse the string 
-        
-        if(res.length() == 0)
-            return "0";
-        
-        return res;
-        
-        
+        //ab kyuki stack se nikale the to ulta tha to sidha kiye
+        reverse(ans.begin(),ans.end());
+        return ans;
     }
 };
