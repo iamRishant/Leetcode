@@ -7,7 +7,7 @@ public:
         int ans=0;
         while(l<n && r<n+k-1){
             int currIndex=r%n;
-            int prevIndex=(r-1)%n;
+            int prevIndex=(r-1+n)%n;
             if(colors[prevIndex]==colors[currIndex]){
                 l=r;
             }
