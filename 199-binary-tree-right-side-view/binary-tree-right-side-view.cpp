@@ -12,24 +12,21 @@
 class Solution {
 public:
     vector<int> rightSideView(TreeNode* root) {
-        queue<pair<TreeNode *,int>> q;// root and horizontal dist;
+        // lets try simple level orde traversal
         if(root==NULL) return {};
-        q.push({root,0});
-        map<int,int> mp;
-        while(!q.empty()){
-            auto it=q.front();
-            q.pop();
-            auto node=it.first;
-            int hd=it.second;
-            mp[hd]=node->val;
-            if(node->left) q.push({node->left,hd+1});
-            if(node->right) q.push({node->right,hd+1});
-        }
+        queue<TreeNode *> q;
+        q.push(root);
         vector<int> ans;
-        for(auto it: mp){
-            ans.push_back(it.second);
+        while(!q.empty()){
+            int sz=q.size();
+            for(int i=0;i<sz;i++){
+                auto it=q.front();
+                q.pop();
+                if(i==sz-1) ans.push_back(it->val);
+                if(it->left) q.push(it->left);
+                if(it->right) q.push(it->right);
+            }
         }
         return ans;
     }
-
 };
