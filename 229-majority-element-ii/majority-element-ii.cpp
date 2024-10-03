@@ -1,34 +1,36 @@
 class Solution {
 public:
     vector<int> majorityElement(vector<int>& nums) {
-        int person1=INT_MIN;
-        int person2=INT_MIN;
-        int cp1=0;
-        int cp2=0;
+        int count1=0;
+        int count2=0;
+        int p1=-1;
+        int p2=-2;
+        for(int i=0;i<nums.size();i++){
+            if(count1==0 && nums[i]!=p2){
+                p1=nums[i];
+                count1=1;
+            }
+            else if(count2==0 && nums[i]!=p1){
+                p2=nums[i];
+                count2=1;
+            }
+            else if(nums[i]==p1) count1++;
+            else if(nums[i]==p2) count2++;
+            else {
+                count1--;
+                count2--;
+            }
+        }
+        count1=0;
+        count2=0;
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]==p1) count1++;
+            else if(nums[i]==p2) count2++;
+        }
         int n=nums.size();
-        for(int i=0;i<n;i++){
-            if(cp1==0 && nums[i]!=person2){
-                cp1=1;
-                person1=nums[i];
-            }
-            else if(cp2==0 && nums[i]!=person1){
-                cp2=1;
-                person2=nums[i];
-            }
-            else if(nums[i]==person1) cp1++;
-            else if(nums[i]==person2) cp2++;
-            else {cp1--; cp2--;}
-        }
-        // now here we have two top majority element now we just have to check there count is greater than n/3
-        cp1=0;
-        cp2=0;
-        for(int i=0;i<n;i++){
-            if(nums[i]==person1) cp1++;
-            else if(nums[i]==person2) cp2++;
-        }
         vector<int> ans;
-        if(cp1>n/3) ans.push_back(person1);
-        if(cp2>n/3) ans.push_back(person2);
+        if(count1>(n/3)) ans.push_back(p1);
+        if(count2>(n/3)) ans.push_back(p2);
 
         return ans;
         
