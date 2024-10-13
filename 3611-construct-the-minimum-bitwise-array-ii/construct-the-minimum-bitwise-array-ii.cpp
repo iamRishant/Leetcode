@@ -12,11 +12,6 @@ public:
                     k++;
                     num=(1<<k);
                 }
-                // num=(num>>1);
-                // cout<<num<<endl;
-                // cout<<(num>>1)<<endl;
-                // cout<<endl;
-                // num=(~(num));
                 int curr=(nums[i] & ~(num>>1));
                 ans.push_back(curr);
             }
