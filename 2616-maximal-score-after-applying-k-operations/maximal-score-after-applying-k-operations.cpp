@@ -9,7 +9,7 @@ public:
             auto tp=pq.top();
             pq.pop();
             ans+=tp;
-            int toInsert=ceil((tp*1.0)/3);
+            int toInsert=(tp+3-1)/3;
             pq.push(toInsert);
         }
         return ans;
