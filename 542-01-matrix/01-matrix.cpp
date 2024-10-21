@@ -3,7 +3,7 @@ public:
     vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
 
 
-        // think reverse wat
+        // think reverse way
 
         int n=mat.size();
         int m=mat[0].size();
