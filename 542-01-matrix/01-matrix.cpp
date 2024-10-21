@@ -2,6 +2,9 @@ class Solution {
 public:
     vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
 
+
+        // think reverse wat
+
         int n=mat.size();
         int m=mat[0].size();
 
