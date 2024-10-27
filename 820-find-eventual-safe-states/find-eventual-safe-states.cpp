@@ -19,6 +19,8 @@ public:
         vector<int> vis(n,0),pathVis(n,0);
         vector<int> ans;
 
+        // using single array to detect cycle
+
         for(int i=0;i<n;i++){
             if(isCycle(i,vis,pathVis,graph)) continue;
             else ans.push_back(i);
