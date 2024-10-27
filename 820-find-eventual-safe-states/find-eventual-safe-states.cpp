@@ -1,44 +1,28 @@
 class Solution {
 public:
-    bool dfs(int node, vector<int>& vis, vector<int>& safe, vector<vector<int>>& graph) {
-        // If the node is already visited, check if it's marked as unsafe
-        if (vis[node] != 0) {
-            return vis[node] == 2;  // 2 means it's safe
-        }
+    bool isCycle(int node, vector<int> &vis,vector<int> &pathVis,vector<vector<int>> &graph){
+        vis[node]=1;
+        pathVis[node]=1;
 
-        // Mark the node as visiting
-        vis[node] = 1;
-        for (auto it : graph[node]) {
-            // If the neighboring node is not safe, mark the current node as unsafe
-            if (!dfs(it, vis, safe, graph)) {
-                return false;
+        for(auto &it: graph[node]){
+            if(!vis[it]){
+                if(isCycle(it,vis,pathVis,graph)) return true;
             }
+            else if(pathVis[it]) return true;
         }
 
-        // Mark the node as safe
-        vis[node] = 2;
-        safe[node] = 1;
-        return true;
+        pathVis[node]=0;
+        return false;
     }
-
     vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
-        int n = graph.size();
-        vector<int> vis(n, 0);  // 0: unvisited, 1: visiting, 2: safe
-        vector<int> safe(n, 0);  // Mark nodes that are safe
+        int n=graph.size();
+        vector<int> vis(n,0),pathVis(n,0);
         vector<int> ans;
 
-        // Run dfs for each node to determine if it's safe
-        for (int i = 0; i < n; i++) {
-            dfs(i, vis, safe, graph);
+        for(int i=0;i<n;i++){
+            if(isCycle(i,vis,pathVis,graph)) continue;
+            else ans.push_back(i);
         }
-
-        // Collect all the safe nodes
-        for (int i = 0; i < n; i++) {
-            if (safe[i]) {
-                ans.push_back(i);
-            }
-        }
-
         return ans;
     }
 };
