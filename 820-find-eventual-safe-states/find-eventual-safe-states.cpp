@@ -1,17 +1,17 @@
 class Solution {
 public:
     bool isCycle(int node, vector<int> &vis,vector<int> &pathVis,vector<vector<int>> &graph){
-        vis[node]=1;
-        pathVis[node]=1;
+        vis[node]=2;
+        // pathVis[node]=1;
 
         for(auto &it: graph[node]){
             if(!vis[it]){
                 if(isCycle(it,vis,pathVis,graph)) return true;
             }
-            else if(pathVis[it]) return true;
+            else if(vis[it]==2) return true;
         }
 
-        pathVis[node]=0;
+        vis[node]=1;
         return false;
     }
     vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
