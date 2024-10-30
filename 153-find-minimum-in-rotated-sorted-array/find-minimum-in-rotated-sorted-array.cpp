@@ -26,6 +26,7 @@ public:
             }
             // case 4 >< since sorted hai to ise chota wala ye to yhi hoga yaleft me hoga
             else if(nums[high]>nums[mid] && nums[low]>nums[mid]) high=mid;
+            // if low,high or mid overlapping it means there are just 2 elements
             else return min(nums[low],nums[high]);
 
         }
