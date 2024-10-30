@@ -1,36 +1,21 @@
 class Solution {
 public:
     int findMin(vector<int>& nums) {
-        //there can be 4 case >> << <> ><
-        if(nums.size()==1) return nums[0];
-        if(nums.size()==2) return min(nums[0],nums[1]);
-
+        int n=nums.size();
         int low=0;
-        int high=nums.size()-1;
-        while(low<high){
+        int high=n-1;
+        int ans=nums[0];//if left sorted
+        while(low<=high){
             int mid=(low+high)/2;
-            // case 1 >>
-            if(nums[low]>nums[mid] && nums[mid]>nums[high]){
+            // if it is right sorted then mid can be possible answer
+            ans=min(ans,nums[mid]);
+            // if left sorted
+            if(nums[mid]>=nums[low]){
+                ans=min(ans,nums[low]);
                 low=mid+1;
             }
-            // case 2 <<
-            else if(nums[low]<nums[mid] && nums[mid]<nums[high]){
-                high=mid-1;
-            }
-            //case 3 <>
-            else if(nums[mid]>nums[high] && nums[mid]>nums[low]){
-                if(nums[high]>nums[low]){
-                    high=mid-1;
-                }
-                else low=mid+1;
-            }
-            // case 4 >< since sorted hai to ise chota wala ye to yhi hoga yaleft me hoga
-            else if(nums[high]>nums[mid] && nums[low]>nums[mid]) high=mid;
-            // if low,high or mid overlapping it means there are just 2 elements
-            else return min(nums[low],nums[high]);
-
+            else high=mid-1;
         }
-
-        return nums[low];
+        return ans;
     }
 };
