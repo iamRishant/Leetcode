@@ -1,23 +1,35 @@
 class Solution {
 public:
     int findMin(vector<int>& nums) {
-        int n=nums.size();
-        int s=0;
-        int e=n-1;
-        int ans=nums[0];
+        //there can be 4 case >> << <> ><
+        if(nums.size()==1) return nums[0];
+        if(nums.size()==2) return min(nums[0],nums[1]);
 
-        while(e>=s){
-            int mid=s+(e-s)/2;
-            ans=min(ans,nums[mid]);
-            // left sorted then we will move to right side 
-            if(nums[mid]>=nums[s]){
-                s=mid+1;
-                if(s<=e)
-                ans=min(ans,nums[s]);
+        int low=0;
+        int high=nums.size()-1;
+        while(low<high){
+            int mid=(low+high)/2;
+            // case 1 >>
+            if(nums[low]>nums[mid] && nums[mid]>nums[high]){
+                low=mid+1;
             }
-            else if(nums[mid]<=nums[e]) e=e-1;
+            // case 2 <<
+            else if(nums[low]<nums[mid] && nums[mid]<nums[high]){
+                high=mid-1;
+            }
+            //case 3 <>
+            else if(nums[mid]>nums[high] && nums[mid]>nums[low]){
+                if(nums[high]>nums[low]){
+                    high=mid-1;
+                }
+                else low=mid+1;
+            }
+            // case 4 >< since sorted hai to ise chota wala ye to yhi hoga yaleft me hoga
+            else if(nums[high]>nums[mid] && nums[low]>nums[mid]) high=mid;
+            else return min(nums[low],nums[high]);
+
         }
-        return ans;
-        
+
+        return nums[low];
     }
 };
