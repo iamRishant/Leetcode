@@ -1,39 +1,25 @@
 class Solution {
 public:
-    int check(int mid,vector<int> piles,int hi){
-        // int ele=piles[mid];
-        int ans=0;
+    bool check(int mid,vector<int> & piles,int h){
+        long long sum=0;
         for(int i=0;i<piles.size();i++){
-            ans+=ceil(piles[i]/(mid*1.0));
-            if(ans>hi) return 2;
+            sum+=(piles[i]+mid-1)/mid;//ceil value
+            if(sum>h) return false;
         }
-        // it means total sum is less than hour so we can go mmore back
-        return 1;
-        
+        if(sum<=h) return true;
+        return false;
     }
-    int minEatingSpeed(vector<int>& piles, int hi) {
-        int n=piles.size();
-        // lets find the max range
-        int maxi=0;
-        for(int i=0;i<n;i++) maxi=max(piles[i],maxi);
-        // now we need to find a value between 1 and maxi
-        int l=1;
-        int h=maxi;
-        // let current ans be max
-        int ans=h;
-        while(h>=l){
-            int mid=l+(h-l)/2;
-
-            int val=check(mid,piles,hi);
-            if(val==2) {
-                // if the current mid cannot satisfy the timelimit then we will try to eat more at a time
-                l=mid+1;
-                }
-            else {
-                // if current k value is sufficient then we will go more back to check for any lesser value
-                ans=min(mid,ans);
-                h=mid-1;
-                };
+    int minEatingSpeed(vector<int>& piles, int h) {
+        int low=1;
+        int high=1e9;
+        int ans=high;
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            if(check(mid,piles,h)){
+                ans=mid;
+                high=mid-1;
+            }
+            else low=mid+1;
         }
         return ans;
     }
