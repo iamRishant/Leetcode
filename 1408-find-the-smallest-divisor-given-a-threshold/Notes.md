@@ -1,1 +1,1 @@
-<h2>find-the-smallest-divisor-given-a-threshold Notes</h2><hr>[ Time taken: 13 m 20 s ]
+<h2>find-the-smallest-divisor-given-a-threshold Notes</h2><hr>[ Time taken: 5 m 24 s ]
