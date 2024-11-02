@@ -1,44 +1,34 @@
 class Solution {
 public:
-    bool check(long long i, vector<int> nums,int k){
-        int student=1;
-        int numberOfPages=0;
-        // ye andr wala kaam to prefix sum se bhi krr lenge range find krna main kaam tha
-        for(int j=0;j<nums.size();j++){
-            if(numberOfPages+nums[j]<=i){
-                numberOfPages+=nums[j];
+    bool check(int mid,vector<int> &nums,int k){
+        int curr=0;
+        int seg=1;
+        for(int i=0;i<nums.size();i++){
+            curr+=nums[i];
+            if(curr>mid){
+                seg++;
+                curr=nums[i];
             }
-            else{
-                // goto  next student
-                student++;
-                numberOfPages=nums[j];
-            }
+            if(seg>k) return false;
         }
-        if(student<=k) return 0;
-        return 1;
-        
+        if(seg<=k) return true;
+        return false;
     }
     int splitArray(vector<int>& nums, int k) {
-        // this is same as book allocation problem
-        int low=-1;
-        for(int i=0;i<nums.size();i++) {low=max(nums[i],low);};
-        long long high=accumulate(nums.begin(),nums.end(),0);
+        int low=*max_element(nums.begin(),nums.end());
+        int high=accumulate(nums.begin(),nums.end(),0);
+        
+        int ans=low;
 
-        int ans=high;
-        while(high>=low){
+        while(low<=high){
             int mid=low+(high-low)/2;
-
-            bool val=check(mid,nums,k);
-            if(val){
-                low=mid+1;
-            }
-            else{
-                ans=min(mid,ans);
+            if(check(mid,nums,k)){
+                ans=mid;
                 high=mid-1;
             }
+            else low=mid+1;
         }
+
         return ans;
-
-
     }
 };
