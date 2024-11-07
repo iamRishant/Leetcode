@@ -1,23 +1,23 @@
 class Solution {
 public:
     int jump(vector<int>& nums) {
-        if(nums.size()==1) return 0;
-        if(nums[0]>=nums.size()-1) return 1;
         int jump=0;
-        int index=0;
-        int currRange=nums[0];
-        int maxRange=nums[0];
         int n=nums.size();
-        while(index<nums.size()){
-            maxRange=max(maxRange,index+nums[index]);
+        int curr=0;
+        int currEnd=nums[0];
+        int maxEnd=0;
+        if(n==1) return 0;
 
-            if(index==currRange){
-                currRange=maxRange;
+        while(curr<n){
+            maxEnd=max(maxEnd,curr+nums[curr]);
+
+            // if(curr==maxEnd) return -1;
+            if(curr==currEnd){
+                currEnd=maxEnd;
                 jump++;
-                if(maxRange>=n-1) return jump+1;
-                
             }
-            index++;
+            if(currEnd>=n-1) return jump+1;
+            curr++;
         }
         return jump;
     }
