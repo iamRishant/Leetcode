@@ -1,0 +1,1 @@
+<h2>minimize-the-maximum-adjacent-element-difference Notes</h2><hr>[ Time taken: 2 hrs 15 m 31 s ]
