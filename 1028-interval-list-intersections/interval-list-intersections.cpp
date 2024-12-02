@@ -13,7 +13,9 @@ public:
         int secondPtr=0;
 
         while(firstPtr<lenFirst && secondPtr<lenSecond){
+
             if(firstList[firstPtr][0]<=secondList[secondPtr][1] && secondList[secondPtr][0]<=firstList[firstPtr][1]){
+                // this if case is basically checking if both are overlapping 
                 temp[0]=max(firstList[firstPtr][0],secondList[secondPtr][0]);
                 temp[1]=min(firstList[firstPtr][1],secondList[secondPtr][1]);
                 ans.push_back(temp);
