@@ -1,32 +1,26 @@
 class Solution {
 public:
     vector<vector<int>> intervalIntersection(vector<vector<int>>& firstList, vector<vector<int>>& secondList) {
-     vector<vector<int>> store;
-     for(int i=0;i<firstList.size();i++){
-        store.push_back(firstList[i]);
-     }   
-     for(int i=0;i<secondList.size();i++){
-        store.push_back(secondList[i]);
-     }
-     sort(store.begin(),store.end());
+        
+        // space optimised and time optimised
 
-     int prev=0;
-     vector<vector<int>> ans;
-    //  int curr=1;
-    for(int i=1;i<store.size();i++){
-        if(store[i][0]>store[prev][1]){
+        int lenFirst=firstList.size();
+        int lenSecond=secondList.size();
+        vector<vector<int>> ans;
+        vector<int> temp(2);
 
-            if(store[i][1]>store[prev][1]) prev=i;
-            // continue;
+        int firstPtr=0;
+        int secondPtr=0;
+
+        while(firstPtr<lenFirst && secondPtr<lenSecond){
+            if(firstList[firstPtr][0]<=secondList[secondPtr][1] && secondList[secondPtr][0]<=firstList[firstPtr][1]){
+                temp[0]=max(firstList[firstPtr][0],secondList[secondPtr][0]);
+                temp[1]=min(firstList[firstPtr][1],secondList[secondPtr][1]);
+                ans.push_back(temp);
+            }
+            if(firstList[firstPtr][1]>secondList[secondPtr][1]) secondPtr++;
+            else firstPtr++;
         }
-        else{
-            vector<int> temp;
-            // temp.push_back();
-            ans.push_back({max(store[prev][0],store[i][0]),min(store[prev][1],store[i][1])});
-        }
-        if(store[i][1]>store[prev][1]) prev=i;
-    }
-    return ans;
-
+        return ans;
     }
 };
