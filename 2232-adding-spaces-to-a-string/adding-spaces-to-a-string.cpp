@@ -8,7 +8,8 @@ public:
         int j=0;
         for(int i=0;i<n;i++){
             if(j<m && i==spaces[j]){
-                s+=' ';
+                // s=s+' ' this operation is o(n) coz it creates new string
+                s+=' ';//this is o(1)
                 j++;
             }
             s+=S[i];
