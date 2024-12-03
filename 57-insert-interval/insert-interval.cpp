@@ -1,6 +1,7 @@
 class Solution {
 public:
     vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
+        // using 2 arrays but o(n) complexity
         vector<vector<int>> ans;
         int n=intervals.size();
         int flag=1;
