@@ -1,27 +1,25 @@
 class Solution {
 public:
     bool search(vector<int>& nums, int target) {
-        int s=0;
-        int e=nums.size()-1;
-        while(s<=e){
-            int mid=s+(e-s)/2;
+        int n=nums.size();
+        int low=0;
+        int high=n-1;
+        while(low<=high){
+            int mid=(low+high)/2;
+            
             if(nums[mid]==target) return true;
-            // if it has duplicate and all the s mid and high index have same element then we will unable to eliminate left or right half so we need to trim down 
-            else if(nums[mid]==nums[s] && nums[mid]==nums[e]){s++;e--;}
-            // check if left half is sorted
-            else if(nums[s]<=nums[mid]){
-                // if target exist in left half
-                if(target>=nums[s] && nums[mid]>=target){
-                    e=mid-1;
-                }
-                else s=mid+1;
+            else if(nums[mid]==nums[high] && nums[low]==nums[high]){
+                high--;
+                low++;
             }
-            // else it is right sorted
-            else if(nums[mid]<=nums[e]){
-                if(target>=nums[mid] && target<=nums[e]){
-                    s=mid+1;
-                }
-                else e=mid-1;
+            else if(nums[mid]>=nums[low]){
+                //it means left sorted
+                if(target>=nums[low] && target<nums[mid]) high=mid-1;
+                else low=mid+1;
+            }
+            else{
+                if(target<=nums[high] && nums[mid]<target) low=mid+1;
+                else high=mid-1;
             }
         }
         return false;
