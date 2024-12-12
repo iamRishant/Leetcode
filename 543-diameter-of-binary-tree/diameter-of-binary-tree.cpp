@@ -10,22 +10,21 @@
  * };
  */
 class Solution {
+
 public:
-    
-    int maxi=0;
-    int height(TreeNode* root){
+int maxi=-1;
+    int solve(TreeNode * root){
         if(root==NULL) return 0;
 
-        int lh=height(root->left);
-        int rh=height(root->right);
-        // now we are calculating left height and right height and storing the value
-        maxi=max(maxi,lh+rh);// here we are storing the diameter while finding the height
-        return 1+max(lh,rh);
+        int left=solve(root->left);
+        int right=solve(root->right);
+        maxi=max(maxi,left+right);
+
+        return max(left,right)+1;
+
     }
     int diameterOfBinaryTree(TreeNode* root) {
-        // now we will do it in order of n
-
-        height(root);
+        solve(root);
         return maxi;
     }
 };
