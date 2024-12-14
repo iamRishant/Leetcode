@@ -1,6 +1,8 @@
 class Solution {
 public:
     long long continuousSubarrays(vector<int>& nums) {
+        // this is an nlogn solution becoz of set we need to use monotonic queue 
+        // to reduce the extra logn operaion of contant operatio
         long long ans=0;
         set<pair<int,int>> st;
         // for(int i=0;i<nums.size();i++) st.insert({nums[i],i});
