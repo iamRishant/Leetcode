@@ -1,25 +1,30 @@
 class Solution {
 public:
     long long continuousSubarrays(vector<int>& nums) {
-        // this is an nlogn solution becoz of set we need to use monotonic queue 
-        // to reduce the extra logn operaion of contant operatio
         long long ans=0;
-        set<pair<int,int>> st;
-        // for(int i=0;i<nums.size();i++) st.insert({nums[i],i});
-        int n=nums.size();
+        deque<int> maxD,minD;
+        int right=0;
         int left=0;
-        for(int i=0;i<n;i++){
-            st.insert({nums[i],i});
-            int maxi=(st.rbegin()->first);
-            int mini=(st.begin()->first);
-            while(maxi-mini>2){
-                st.erase({nums[left],left});
+        int n=nums.size();
+
+        while(right<n){
+            while(!maxD.empty() && nums[right]>= nums[maxD.back()]) maxD.pop_back();
+            while(!minD.empty() && nums[right]<= nums[minD.back()]) minD.pop_back();
+            maxD.push_back(right);
+            minD.push_back(right);
+            // now maxD is in increasing order and minD is in decresing order
+            while(nums[maxD.front()]-nums[minD.front()]>2){
                 left++;
-                maxi=(st.rbegin()->first);
-                mini=(st.begin()->first);
+                if(maxD.front()<left) maxD.pop_front();
+                if(minD.front()<left) minD.pop_front();
+
+                //moving left pointer and removing element from deque accordingly
+
             }
-            ans+=(i-left+1);
+            ans+=(right-left+1);
+            right++;
         }
+
         return ans;
     }
 };
