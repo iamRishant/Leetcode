@@ -1,24 +1,14 @@
 class Solution {
 public:
     int minimumLength(string s) {
+        vector<int> hash(26,0);
+        int n=s.length();
+        int cnt=0;
 
-        vector<int> left(26,0);
-        vector<int> right(26,0);
-        for(int i=0;i<s.length();i++){
-            right[s[i]-'a']++;
+        for(int i=0;i<n;i++){
+            hash[s[i]-'a']++;
+            if(hash[s[i]-'a']==3) {hash[s[i]-'a']=1; cnt+=2;}
         }
-        int count=0;
-        for(int i=0;i<s.length();i++){
-            right[s[i]-'a']--;
-            if(left[s[i]-'a'] && right[s[i]-'a']){
-                left[s[i]-'a']--;
-                right[s[i]-'a']--;
-            }
-            else{
-                count++;
-            }
-            left[s[i]-'a']++;
-        }
-        return count;
+        return n-cnt;
     }
 };
