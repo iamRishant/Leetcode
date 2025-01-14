@@ -4,13 +4,22 @@ public:
         set<int> st;
         int n=A.size();
         vector<int> ans;
+        int count=0;
+        int j=0;
         for(int i=0;i<n;i++){
-            st.insert(B[i]);
-            int count=0;
-            for(int j=0;j<=i;j++){
-                if(st.find(A[j])!=st.end()) count++;
+            if(st.find(A[i])!=st.end()){
+                st.erase(A[i]);
+                count++;
             }
+            else st.insert(A[i]);
+            if(st.find(B[i])!=st.end()){
+                count++;
+                st.erase(B[i]);
+            }
+            else st.insert(B[i]);
+
             ans.push_back(count);
+
         }
         return ans;
     }
