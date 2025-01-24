@@ -33,6 +33,7 @@ public:
         return dp[n][idx]=ans;
     }
     int numOfWays(int n) {
+        // there is another solution mathematical but i find this more intutive
         vector<vector<int>> dp(n+1,vector<int> (12,-1));
         int ans=0;
         for(int i=0;i<12;i++){
