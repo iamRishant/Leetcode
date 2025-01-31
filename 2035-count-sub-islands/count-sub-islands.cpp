@@ -35,34 +35,27 @@ public:
         m=grid1[0].size();
 
         vector<vector<int>> vis1(n,vector<int> (m,0));
-        // vector<vector<int>> vis2(n,vector<int> (m,0));
 
         int delrow[]={-1,0,1,0};
         int delcol[]={0,1,0,-1};
 
+        int count=0;
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
                 if(!vis1[i][j] && grid1[i][j]==1){
                     dfs(i,j,grid1,vis1,delrow,delcol);
                 }
-            }
-        }
 
-        int count=0;
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
                 if(vis1[i][j]!=2 && grid2[i][j]==1){
                     int ans=1;
                     dfs2(i,j,grid2,vis1,delrow,delcol,ans);
-                    // cout<<"i "<<i<<" j "<<j<<endl;
                     if(ans){
-                        // cout<<"row "<<i<<" col "<<j<<endl;
-
                         count++;
                     }
                 }
             }
         }
+
         return count;
     }
 };
