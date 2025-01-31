@@ -16,23 +16,25 @@ public:
     }
     void dfs2(int row,int col,vector<vector<int>> &grid,vector<vector<int>> &vis,set<pair<int,int>> &st,int delrow[],int delcol[],int &ans){
         // st.insert({row,col});
-        auto it=st.find({row,col});
-        if(it==st.end()){
-            ans=0;
+        // auto it=st.find({row,col});
+        // if(it==st.end()){
+        //     ans=0;
 
-        }
-        else {
-            // cout<<"row "<<row<<" col "<<col<<endl;
-            st.erase(it);
-        }
+        // }
+        // else {
+        //     // cout<<"row "<<row<<" col "<<col<<endl;
+        //     st.erase(it);
+        // }
         
-
-        vis[row][col]=1;
+        if(vis[row][col]==0){
+            ans=false;
+        }
+        vis[row][col]=2;
 
         for(int i=0;i<4;i++){
             int nrow=row+delrow[i];
             int ncol=col+delcol[i];
-            if(nrow>=0 && ncol>=0 && nrow<n && ncol<m && !vis[nrow][ncol] && grid[nrow][ncol]==1){
+            if(nrow>=0 && ncol>=0 && nrow<n && ncol<m && vis[nrow][ncol]<2 && grid[nrow][ncol]==1){
                 dfs2(nrow,ncol,grid,vis,st,delrow,delcol,ans);
             }
         }
@@ -43,7 +45,7 @@ public:
         m=grid1[0].size();
 
         vector<vector<int>> vis1(n,vector<int> (m,0));
-        vector<vector<int>> vis2(n,vector<int> (m,0));
+        // vector<vector<int>> vis2(n,vector<int> (m,0));
 
         int delrow[]={-1,0,1,0};
         int delcol[]={0,1,0,-1};
@@ -60,9 +62,9 @@ public:
         int count=0;
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
-                if(!vis2[i][j] && grid2[i][j]==1){
+                if(vis1[i][j]!=2 && grid2[i][j]==1){
                     int ans=1;
-                    dfs2(i,j,grid2,vis2,st,delrow,delcol,ans);
+                    dfs2(i,j,grid2,vis1,st,delrow,delcol,ans);
                     // cout<<"i "<<i<<" j "<<j<<endl;
                     if(ans){
                         // cout<<"row "<<i<<" col "<<j<<endl;
