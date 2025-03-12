@@ -3,13 +3,13 @@
  * @return {Function}
  */
 function memoize(fn) {
-    let cache={};
+    let memo={};
     return function(...args) {
-        
         let key=JSON.stringify(args);
-        if(key in cache) return cache[key];
-        return cache[key]=fn(...args);
-        
+        if(key in memo){
+            return memo[key];
+        }
+        else return memo[key]=fn(...args);
     }
 }
 
