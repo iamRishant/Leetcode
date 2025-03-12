@@ -3,8 +3,9 @@
  * @return {Function}
  */
 var compose = function(functions) {
-    functions.reverse();
+    
     return function(x) {
+        functions.reverse();
         return functions.reduce((acc,curr)=>curr(acc),x);
     }
 };
