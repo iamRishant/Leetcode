@@ -1,28 +1,27 @@
 class Solution {
 public:
     void nextPermutation(vector<int>& nums) {
-        // step 1 traverse from right find the index which smaller than its right
         int idx=-1;
-        for(int i=nums.size()-2;i>=0;i--){
+        int n=nums.size();
+        for(int i=n-2;i>=0;i--){
             if(nums[i]<nums[i+1]){
                 idx=i;
                 break;
             }
         }
-        if(idx==-1) reverse(nums.begin(),nums.end());
+        if(idx==-1){
+            reverse(nums.begin(),nums.end());
+            return ;
+        }
         else{
-            // step 2 we need to find next greater element than idx so that we can swap it
-            
-            for(int i=nums.size()-1;i>idx;i--){
+            for(int i=n-1;i>=0;i--){
                 if(nums[i]>nums[idx]){
-                    swap(nums[idx],nums[i]);
-                    // idx=i;
+                    swap(nums[i],nums[idx]);
                     break;
                 }
             }
-            // after this we need to reverse the numbers after idx since they are increasing order and we need the smallest number after inx
             reverse(nums.begin()+idx+1,nums.end());
-
+            return;
         }
     }
 };
