@@ -1,26 +1,24 @@
 class Solution {
 public:
     int trap(vector<int>& height) {
-        int l=0;
+        int total=0;
         int n=height.size();
-        int r=n-1;
-        int lmax=height[l];
-        int rmax=height[r];
-        int ans=0;
+        vector<int> prefix(n,0);
+        vector<int> suffix(n,0);
 
-        while(l<r){
-            if(lmax<rmax){//since right side is greater we need only left side 
-                l++;
-                lmax=max(lmax,height[l]);//calculating the prefix 
-                ans+=(lmax-height[l]);
-            }
-            else{
-                r--;
-                rmax=max(rmax,height[r]);// same calculating the suffix
-                ans+=(rmax-height[r]);
-            }
+        prefix[0]=height[0];
+        suffix[n-1]=height[n-1];
+
+        for(int i=1;i<n;i++){
+            prefix[i]=max(prefix[i-1],height[i]);
+            suffix[n-i-1]=max(suffix[n-i],height[n-i-1]);
         }
-        return ans;
+
+        for(int i=0;i<height.size();i++){
+            if(height[i]>=prefix[i] || height[i]>=suffix[i]) continue;
+            else total+=(min(prefix[i],suffix[i])-height[i]);
+        }
+        return total;
 
     }
 };
