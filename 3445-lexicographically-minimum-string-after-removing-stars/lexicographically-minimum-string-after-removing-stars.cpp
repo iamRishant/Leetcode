@@ -1,31 +1,27 @@
 class Solution {
 public:
     string clearStars(string s) {
+        int minChar=s[0];
+        int minIdx=0;
         int n=s.length();
-        priority_queue < pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>> > pq;
-        vector<int> ans(n,-1);
-        // int minCharInd=-1;
-        // int miniMumChar=1e9;
-        for(int i=0;i<s.length();i++){
-            if(s[i]!='*'){
-                ans[i]=s[i]-'a';
-            }
-            else if(s[i]== '*' && pq.empty()==true){continue;}
-            else{
-                auto it=pq.top();
-                int ind=n-it.second;
-                ans[ind]=-1;
-                pq.pop();
-            }
-            if(s[i]!='*') pq.push({s[i]-'a',n-i});
-        }
-
-
-        string anss="";
+        set<pair<char,int>> st;
         for(int i=0;i<n;i++){
-            if(ans[i]!=-1) anss+=ans[i]+'a';
+            if(s[i]!='*'){
+                st.insert({s[i],-i});
+            }
+            if(s[i]=='*'){
+                if(st.empty()) continue;
+                auto it=st.begin();
+                int idx=-1*(it->second);
+                // cout<<it->first<<" "<<it->second<<endl;
+                st.erase(*it);
+                s[idx]='*';
+            }
         }
-        return anss;
-
+        string ans="";
+        for(int i=0;i<n;i++){
+            if(s[i]!='*') ans+=s[i];
+        }
+        return ans;
     }
 };
